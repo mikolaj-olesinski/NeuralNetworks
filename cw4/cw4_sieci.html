@@ -7899,7 +7899,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Eksperyment:-R%C3%B3%C5%BCne-batch-sizes">Eksperyment: Różne batch sizes<a class="anchor-link" href="#Eksperyment:-R%C3%B3%C5%BCne-batch-sizes">¶</a></h1><h3 id="Cel:">Cel:<a class="anchor-link" href="#Cel:">¶</a></h3><p>Sprawdzić, jak rozmiar batcha wpływa na proces uczenia sieci neuronowej, szybkość konwergencji i zdolność do generalizacji.</p>
+<h1 id="R%C3%B3%C5%BCne-batch-sizes">Różne batch sizes<a class="anchor-link" href="#R%C3%B3%C5%BCne-batch-sizes">¶</a></h1><h3 id="Cel:">Cel:<a class="anchor-link" href="#Cel:">¶</a></h3><p>Sprawdzić, jak rozmiar batcha wpływa na proces uczenia sieci neuronowej, szybkość konwergencji i zdolność do generalizacji.</p>
 <h3 id="Ustawienia:">Ustawienia:<a class="anchor-link" href="#Ustawienia:">¶</a></h3><ul>
 <li>Batch sizes: <code>[2, 8, 16, 32, 64, 128]</code></li>
 <li>Liczba epok: <code>500</code></li>
@@ -7908,10 +7908,9 @@ a.anchor-link {
 <h3 id="Wnioski:">Wnioski:<a class="anchor-link" href="#Wnioski:">¶</a></h3><ul>
 <li><strong>Małe batche (2, 8)</strong> prowadzą do <strong>silnego overfittingu</strong>: dokładność treningowa bardzo wysoka (95-98%), ale walidacyjna niska (75-80%), z ogromnym gapem ~18-20%.</li>
 <li>Przy batch=2 sieć robi <strong>~120 aktualizacji wag na epokę</strong>, gdzie każdy update bazuje na bardzo małej próbce, co powoduje <strong>dużą wariancję gradientów</strong>.</li>
-<li>Model <strong>zapamiętuje</strong> poszczególne przykłady zamiast uczyć się ogólnych wzorców.</li>
 <li><strong>Średnie batche (16, 32)</strong> dają <strong>najlepszy balans</strong>: train ~92-93%, val ~85%, gap tylko ~7-8%.</li>
 <li>Wystarczająco duży batch zapewnia <strong>stabilny gradient</strong>, a wystarczająco dużo update'ów (7-15 na epokę) umożliwia efektywną eksplorację.</li>
-<li><strong>Duże batche (64, 128)</strong> powodują <strong>wolniejszą konwergencję</strong>: niższa dokładność treningowa przy tej samej liczbie epok, ale dobra generalizacja (gap 6.5-7.8%).</li>
+<li><strong>Duże batche (64, 128)</strong> powodują <strong>wolniejszą naukę</strong>: niższa dokładność treningowa przy tej samej liczbie epok, ale dobra generalizacja (gap 6.5-7.8%).</li>
 <li>Przy batch=128 tylko <strong>~2 aktualizacje na epokę</strong>: gradient bardzo stabilny, ale uczenie powolne.</li>
 </ul>
 <h3 id="Og%C3%B3lny-wniosek:">Ogólny wniosek:<a class="anchor-link" href="#Og%C3%B3lny-wniosek:">¶</a></h3><p>Dla tego zadania <strong>batch size 32</strong> jest optymalnym wyborem. Zapewnia stabilne gradienty bez nadmiernej wariancji, umożliwia wystarczająco dużo aktualizacji wag dla efektywnego uczenia i minimalizuje overfitting (gap tylko 7.4%). Małe batche prowadzą do zapamiętywania danych, a duże do zbyt wolnego uczenia. W praktyce, dla małych zbiorów danych (237 próbek treningowych), batch size 16-32 jest zazwyczaj optymalny.</p>
