@@ -7562,32 +7562,29 @@ Przebadać wpływ różnych parametrów sieci CNN:</p>
         
         <span class="c1"># Pierwsza warstwa konwolucyjna</span>
         <span class="c1"># Input: (batch, 1, 28, 28) - 1 kanał</span>
-        <span class="c1"># Output: (batch, num_channels, H', W')</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span>
             <span class="n">in_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
             <span class="n">out_channels</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span> 
             <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="n">padding</span><span class="o">=</span><span class="n">kernel_size</span><span class="o">//</span><span class="mi">2</span> 
+            <span class="n">padding</span><span class="o">=</span><span class="n">kernel_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">stride</span><span class="o">=</span><span class="mi">1</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pool1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="n">pool_size</span><span class="p">)</span>
         
         <span class="c1"># Druga warstwa konwolucyjna</span>
-        <span class="c1"># Zwiększamy liczbę kanałów 2x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span>
             <span class="n">in_channels</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span>
             <span class="n">out_channels</span><span class="o">=</span><span class="n">num_channels</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
             <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="n">padding</span><span class="o">=</span><span class="n">kernel_size</span><span class="o">//</span><span class="mi">2</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">kernel_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">stride</span><span class="o">=</span><span class="mi">1</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relu2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pool2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="n">pool_size</span><span class="p">)</span>
         
-        <span class="c1"># Spłaszczenie</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
         
-        <span class="c1"># Warstwy w pełni połączone</span>
-        <span class="c1"># LazyLinear automatycznie ustala wymiarowość przy pierwszym przejściu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LazyLinear</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relu3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># 10 klas w FashionMNIST</span>
@@ -8553,7 +8550,7 @@ kernel_size=7                                       0.9897       0.9162       0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Wnioski---Eksperyment-2:">Wnioski - Eksperyment 2:<a class="anchor-link" href="#Wnioski---Eksperyment-2:">¶</a></h3><p><strong>Kluczowe odkrycie - kernel 1x1 to za mało, 3x3 jest optymalny!</strong></p>
+<h3 id="Wnioski---Eksperyment-2:">Wnioski - Eksperyment 2:<a class="anchor-link" href="#Wnioski---Eksperyment-2:">¶</a></h3><p>kernel 1x1 to za mało, 3x3 jest optymalny!</p>
 <p><strong>Porównanie wydajności:</strong></p>
 <ul>
 <li>kernel 1x1: test acc 88.4%, gap 5.1% - <strong>za małe pole widzenia</strong></li>
@@ -8848,8 +8845,7 @@ pool_size=4                                         0.9021       0.8764       0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Wnioski---Eksperyment-3:">Wnioski - Eksperyment 3:<a class="anchor-link" href="#Wnioski---Eksperyment-3:">¶</a></h3><p><strong>Kluczowe odkrycie - pooling trade-off między downsampling a utratą informacji!</strong></p>
-<p><strong>Porównanie wydajności:</strong></p>
+<h3 id="Wnioski---Eksperyment-3:">Wnioski - Eksperyment 3:<a class="anchor-link" href="#Wnioski---Eksperyment-3:">¶</a></h3><p><strong>Porównanie wydajności:</strong></p>
 <ul>
 <li>pool 1x1: test acc 91.3%, gap 8.5% - <strong>brak downsamplingu = ogromny overfitting</strong></li>
 <li>pool 2x2: test acc <strong>91.6%</strong>, gap 7.1% - najlepszy wynik, ale duży overfitting</li>
@@ -9298,8 +9294,7 @@ High noise only in train (std=0.5)                  0.8993       0.8910       0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Wnioski---Eksperyment-4:">Wnioski - Eksperyment 4:<a class="anchor-link" href="#Wnioski---Eksperyment-4:">¶</a></h3><p><strong>Kluczowe odkrycie - data augmentation przez szum działa świetnie!</strong></p>
-<p><strong>Baseline vs szum (std=0.2):</strong></p>
+<h3 id="Wnioski---Eksperyment-4:">Wnioski - Eksperyment 4:<a class="anchor-link" href="#Wnioski---Eksperyment-4:">¶</a></h3><p><strong>Baseline vs szum (std=0.2):</strong></p>
 <ul>
 <li><strong>No noise</strong>: najwyższy test acc (91.4%), ale gap 5.5%</li>
 <li><strong>Noise only in test</strong>: katastrofa -9.7% (81.7%) - model nieprzygotowany</li>
@@ -9326,7 +9321,7 @@ High noise only in train (std=0.5)                  0.8993       0.8910       0.
 <li>Silny szum (0.5): 89.1% acc, gap 0.8% - świetna generalizacja, ale niższa accuracy</li>
 </ul>
 <p><strong>Ogólny wniosek:</strong>
-<strong>Trening z szumem to skuteczna regularizacja!</strong> Umiarkowany szum (std=0.2) tylko w danych treningowych redukuje overfitting z 5.5% do 3.6% przy stracie zaledwie 1% accuracy. Silny szum działa jeszcze lepiej jako regularizator (gap 0.8%), ale zbyt mocno utrudnia uczenie. <strong>Best practice: zawsze dodawaj lekki szum do danych treningowych dla lepszej generalizacji!</strong></p>
+<strong>Trening z szumem to skuteczna regularizacja!</strong> Umiarkowany szum (std=0.2) tylko w danych treningowych redukuje overfitting z 5.5% do 3.6% przy stracie zaledwie 1% accuracy. Silny szum działa jeszcze lepiej jako regularizator (gap 0.8%), ale zbyt mocno utrudnia uczenie. <strong>Best practice: zawsze dodawać lekki szum do danych treningowych dla lepszej generalizacji!</strong></p>
 </div>
 </div>
 </div>
